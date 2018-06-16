@@ -1,6 +1,10 @@
 # todo: should be in /bin? need to define what an app is
 
-verbatmux () {
+verbatmux/new-pane () {
+    tmux split-window -bhvl${1:-20} 'uze verbatmux; verbatmux/start'
+}
+
+verbatmux/start () {
 	local c m
 	while {read -sk1 c} {
 		case $c {
@@ -11,6 +15,6 @@ verbatmux () {
 			)      clear ; break                 ;;
 			*)       print -n $c                   ;;
 		}
-		tmux send -t${T:=0} $c
+		tmux send -t${1:-1} $c
 	}
 }
